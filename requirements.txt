@@ -10,4 +10,4 @@ plotly==5.5.0
 psycopg2==2.9.3
 psycopg2_binary==2.9.1
 SQLAlchemy==1.4.22
-tensorflow==2.0.0
+tensorflow==2.2.0
