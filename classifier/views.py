@@ -4,18 +4,13 @@ from django.http import HttpResponse, FileResponse, JsonResponse
 from django.core.files.storage import FileSystemStorage
 from django.contrib import messages
 from PIL import Image
-import pickle, time, sqlalchemy, os
-from sqlalchemy.exc import SQLAlchemyError
-from IPython import get_ipython
-ipy = get_ipython()
-if ipy is not None:
-    ipy.run_line_magic('matplotlib', 'inline')
-import json, base64
+#import time, sqlalchemy, os
+#from sqlalchemy.exc import SQLAlchemyError
+import json, base64, os, time
 import numpy as np
 import pandas as pd
 from io import BytesIO
-import psycopg2 as pg
-#import tensorflow as tf
+#import psycopg2 as pg
 import keras
 import sys
 
