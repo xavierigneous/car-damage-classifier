@@ -6,16 +6,13 @@ from django.contrib import messages
 from PIL import Image
 import pickle, time, sqlalchemy, os
 from sqlalchemy.exc import SQLAlchemyError
-import matplotlib.pyplot as plt
 from IPython import get_ipython
 ipy = get_ipython()
 if ipy is not None:
     ipy.run_line_magic('matplotlib', 'inline')
-import plotly.express as px
 import json, base64
 import numpy as np
 import pandas as pd
-import pandas.io.sql as psql
 from io import BytesIO
 import psycopg2 as pg
 #import tensorflow as tf
@@ -26,7 +23,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "damage_classify"))
 
 damage=['Damage', 'No Damage']
 location=['Front','Rear','Side']
-img_save_path = r'D:\Car_Damage_Classifier\damage_classify\temp_data'
+img_save_path = r'\temp_data'
 def home(request):
     if 'image_upload' in request.POST and request.method == "POST":
         uploaded_image=request.FILES['file']
