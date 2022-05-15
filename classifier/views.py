@@ -18,7 +18,8 @@ import pandas as pd
 import pandas.io.sql as psql
 from io import BytesIO
 import psycopg2 as pg
-import tensorflow as tf
+#import tensorflow as tf
+import keras
 import sys
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "damage_classify"))
@@ -36,17 +37,17 @@ def home(request):
         with open(img_save_path+uploaded_image.name, 'wb+') as f:
             f.write(base64.b64decode(display_image))
         
-        img1=tf.keras.preprocessing.image.load_img(img_save_path+uploaded_image.name, target_size=(300, 300))
-        x = tf.keras.preprocessing.image.img_to_array(img1) / 255
+        img1=keras.preprocessing.image.load_img(img_save_path+uploaded_image.name, target_size=(300, 300))
+        x = keras.preprocessing.image.img_to_array(img1) / 255
         x = np.expand_dims(x, axis=0)
-        damage_model = tf.keras.models.load_model(os.path.join(os.getcwd(),r'classifier\models\MobileNet_Car_Classifier.h5'))
-        location_pred_model = tf.keras.models.load_model(os.path.join(os.getcwd(),r'classifier\models\MobileNet_Car_Damage_Location.h5'))
+        damage_model = keras.models.load_model(os.path.join(os.getcwd(),r'classifier\models\MobileNet_Car_Classifier.h5'))
+        location_pred_model = keras.models.load_model(os.path.join(os.getcwd(),r'classifier\models\MobileNet_Car_Damage_Location.h5'))
         damage_incured = damage[int(damage_model.predict(x).argmax(axis=-1))]
         print(damage_incured)   
         damage_report='{} Incurred'.format(damage_incured)
         if damage_incured=='Damage':
-            img2=tf.keras.preprocessing.image.load_img(img_save_path+uploaded_image.name, target_size=(224, 224))
-            x = tf.keras.preprocessing.image.img_to_array(img2) / 255
+            img2=keras.preprocessing.image.load_img(img_save_path+uploaded_image.name, target_size=(224, 224))
+            x = keras.preprocessing.image.img_to_array(img2) / 255
             x = np.expand_dims(x, axis=0)
             location_damage = location[int(location_pred_model.predict(x).argmax(axis=-1))]
             damage_report='{} Incurred in the {}'.format(damage_incured, location_damage)
